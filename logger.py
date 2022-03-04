@@ -15,7 +15,7 @@ class Logger():
                 Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
             )
         ''')
-        con.commit
+        con.commit()
         con.close()
     
     def log(self, record):

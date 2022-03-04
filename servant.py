@@ -3,7 +3,8 @@ import sqlite3
 from logger import Logger
 
 class Servant():
-    def __init__(self):
+    def __init__(self, db_file=r"D:\\OMG\\OMG.db"):
+        self.db=db_file
         self.logger = Logger()
         self.keys = []
         self.get_keys()
@@ -21,6 +22,15 @@ class Servant():
         return data['result']['matches']
     
     def query_pool(self, min_id, max_id):
+        con = sqlite3.connect(self.db)
+        cur = con.cursor()
+        cur.execute(f"SELECT * from Pool WHERE MatchID>={min_id} AND MatchID<={max_id}")
+        matches = []
+        for row in cur.fetchall():
+            matches.append(row)
+        return matches
+
+    def upsert_pool(self):
         pass
 
     def get_key(self):
